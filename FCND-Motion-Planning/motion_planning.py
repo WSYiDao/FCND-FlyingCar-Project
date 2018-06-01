@@ -151,7 +151,7 @@ class MotionPlanning(Drone):
 
         self.target_position[2] = TARGET_ALTITUDE
 
-        # TODO: read lat0, lon0 from colliders into floating point values
+        # read lat0, lon0 from colliders into floating point values
 
         with open('colliders.csv', 'r') as fd:
             data = fd.readline().split(",")
@@ -161,13 +161,13 @@ class MotionPlanning(Drone):
 
         print("(lat0, lon0)={0},{1}".format(lat0, lon0))
 
-        # TODO: set home position to (lon0, lat0, 0)
+        #  set home position to (lon0, lat0, 0)
         self.set_home_position(lon0,lat0,0)
 
-        # TODO: retrieve current global position
+        #  retrieve current global position
         c_global_position = [self._longitude, self._latitude, self._altitude]
 
-        # TODO: convert to current local position using global_to_local()
+        #  convert to current local position using global_to_local()
         c_local_position = global_to_local(c_global_position, self.global_home)
 
         print('global home {0}, position {1}, local position {2}'.format(self.global_home, self.global_position,
@@ -182,12 +182,12 @@ class MotionPlanning(Drone):
         print("North offset = {0}, east offset = {1}".format(north_offset, east_offset))
         # Define starting point on the grid (this is just grid center)
         # grid_start = (-north_offset, -east_offset)
-        # TODO: convert start position to current position rather than map center
+        #  convert start position to current position rather than map center
         grid_start = (int(c_local_position[0] - north_offset), int(c_local_position[1] - east_offset))
 
         # Set goal as some arbitrary position on the grid
         # grid_goal =
-        # TODO: adapt to set goal as latitude / longitude position and convert
+        # adapt to set goal as latitude / longitude position and convert
         vector = (100,-100)
         (latitude , longitude , _ ) = local_to_global((c_local_position[0] + vector[0], c_local_position[1] + vector[1], 0), self.global_home)
         goal_glo_pos = global_to_local([latitude, longitude, self._altitude], self.global_home)
@@ -196,19 +196,19 @@ class MotionPlanning(Drone):
         # grid_goal = (int(north_offset), int(east_offset))
         print("latitude {0} , longitude {1}, goal_glo_pos {2},grid_start{3}, grid_goal {4}".format(latitude , longitude,  goal_glo_pos, grid_start,  grid_goal ))
         # Run A* to find a path from start to goal
-        # TODO: add diagonal motions with a cost of sqrt(2) to your A* implementation
+        # add diagonal motions with a cost of sqrt(2) to your A* implementation
         # or move to a different search space such as a graph (not done here)
         print('Local Start and Goal: ', grid_start, grid_goal)
         path, _ = a_star(grid, heuristic, grid_start, grid_goal)
-        # TODO: prune path to minimize number of waypoints
-        # TODO (if you're feeling ambitious): Try a different approach altogether!
+        # prune path to minimize number of waypoints
+        # (if you're feeling ambitious): Try a different approach altogether!
         pruned_path = prune_path(path,1e-6)
         # Convert path to waypoints
         waypoints = [[p[0] + north_offset, p[1] + east_offset, TARGET_ALTITUDE, 0] for p in pruned_path]
 
         # Set self.waypoints
         self.waypoints = waypoints
-        # TODO: send waypoints to sim (this is just for visualization of waypoints)
+        # send waypoints to sim (this is just for visualization of waypoints)
         self.send_waypoints()
         print(waypoints)
 
