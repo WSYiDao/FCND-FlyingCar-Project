@@ -38,7 +38,7 @@ Calculate a desired 3-axis moment given a desired and current body rate
 
 The commanded roll, pitch, and yaw are collected by the body rate controller, and they are translated into the desired rotational accelerations along the axis in the body frame.
 
-![31](mics/31.png)
+![31](misc/31.png)
 
 then return  `(Ixx, Iyy, Izz)*(u_bar_p, u_bar_q, u_bar_r)`
 
@@ -71,11 +71,11 @@ Calculate a desired pitch and roll angle rates based on a desired global lateral
 
 The roll-pitch controller is a P controller responsible for commanding the roll and pitch rates ( pcpc  and  qcqc ) in the body frame. First, it sets the desired rate of change of the given matrix elements using a P controller.
 
-![33](mics/33.png)
+![33](misc/33.png)
 
 The given values can be converted into the angular velocities into the body frame by the next matrix multiplication.
 
-![32](mics/32.png)
+![32](misc/32.png)
 
 For the `b_x(y)_c_target`, use function `CONSTRAIN ()` to range between `(-maxTiltAngle, maxTiltAngle)`
 
@@ -103,11 +103,11 @@ Calculate desired quad thrust based on altitude setpoint, actual altitude, verti
 
 Linear acceleration can be expressed by the next linear equation
 
-![35](mics/35.png)
+![35](misc/35.png)
 
 In this exercise a PD controller is used for the altitude which results in:
 
-![36](mics/36.png)
+![36](misc/36.png)
 
 And I try to add a PID controller in the project but I can't find much different in the task.
 
@@ -136,7 +136,7 @@ Calculate a desired horizontal acceleration based on  desired lateral position/v
 
 The lateral controller will use a PD controller to command target values for elements of the drone's rotation matrix. The drone generates lateral acceleration by changing the body orientation which results in non-zero thrust in the desired direction. This will translate into the commanded rotation matrix elements `b_x_c` and `b_y_c`. 
 
-![37](mics/37.png)
+![37](misc/37.png)
 
 For the  y  direction the control equations will have the same form as above, `(k_p,k_d) = (kpPosXY, kpVelXY)`
 
