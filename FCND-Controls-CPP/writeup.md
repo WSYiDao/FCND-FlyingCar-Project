@@ -173,7 +173,7 @@ Calculate a desired yaw rate to control yaw to yawCmd
 
 Control over yaw is decoupled from the other directions. A P controller is used to control the drone's yaw.
 
-![39](../39.png)
+![39](misc/39.png)
 
 
 ``` c
