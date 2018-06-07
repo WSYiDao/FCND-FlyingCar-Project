@@ -1,4 +1,4 @@
-# Building a Controller - Writeup#
+# Building a Controller - Writeup
 
 ### 1. GenerateMotorCommands
 Convert a desired 3-axis moment and collective thrust command to individual motor thrust commands
