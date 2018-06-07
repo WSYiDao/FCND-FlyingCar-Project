@@ -178,6 +178,38 @@ Control over yaw is decoupled from the other directions. A P controller is used 
 
 ``` c
   float psi_err = yawCmd - yaw;
-  yawRateCmd =  kpYaw * psi_err;
+  yawRateCmd =  kpYaw * psi_err;I t
 ```
 
+### 7. QuadControlParams
+
+#### scenario 2
+![41](misc/41.png)
+
+- I try to tune kpPQR from (23, 23, 5) to (100,100,10), the vehicle to stop spinning quickly but not overshoot.
+- Then I tune kpBank from 5 to 15, and get a good result. 
+
+### scenario 3 and scenario 4
+![42](misc/42.png)
+
+- yaw: 0 -> 4 
+- the second pic more quickly to zero.
+
+---
+
+- kpPosXY, kpPosZ, KiPosZ: (1,1,20) -> (25,70,20)
+- I find  kpPosXY, kpPosZ is useful, for a better result kpPosXY should increase but it can't be too high.
+
+---
+
+- kpVelXY,kpVelZ: (4,4) -> (10,15)
+- kpVelXY between 4 ~ 8 can get a t_set less than 0.5, but it can't not fit the scenario 4 very well. And 10 I think is good for both 3 and 4 scenario.
+- I try kpVelZ from  4 to 30. I think  between 10~20 is ok for a good result.
+
+![43](misc/43.png)
+
+###  scenario 5
+
+![44](misc/44.png)
+
+I didn't tune any params in scenario 5 at last. The left quadcopter perform well but I can't tune any params to make the right  quadcopter perform. I think it need more work to do.
