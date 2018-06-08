@@ -323,12 +323,12 @@ float QuadControl::AltitudeControl(float posZCmd, float velZCmd, float posZ, flo
   float p_term = kpPosZ * z_err;
   float d_term = kpVelZ * z_err_dot;
   
-//  integratedAltitudeError += z_err *dt;
-//  float i_term = integratedAltitudeError * KiPosZ;
-//
-//
-//  float u_1_bar = p_term + d_term + i_term +  accelZCmd;
-  float u_1_bar = p_term + d_term + accelZCmd;
+  integratedAltitudeError += z_err *dt;
+  float i_term = integratedAltitudeError * KiPosZ;
+
+
+  float u_1_bar = p_term + d_term + i_term +  accelZCmd;
+//  float u_1_bar = p_term + d_term + accelZCmd;
   
   float c  = (u_1_bar - 9.81f)/b_z;
   thrust = - mass * CONSTRAIN(c, -maxAscentRate/dt, maxAscentRate/dt);

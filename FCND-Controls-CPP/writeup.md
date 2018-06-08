@@ -119,7 +119,7 @@ In this exercise a PD controller is used for the altitude which results in:
 
 ![36](misc/36.png)
 
-And I try to add a PID controller in the project but I can't find much different in the task.
+Then I add a PID controller in the project with `i_term `
 
 ``` c
   float z_err = posZCmd - posZ;
@@ -129,12 +129,12 @@ And I try to add a PID controller in the project but I can't find much different
   float p_term = kpPosZ * z_err;
   float d_term = kpVelZ * z_err_dot;
   
-//  integratedAltitudeError += z_err *dt;
-//  float i_term = integratedAltitudeError * KiPosZ;
-//
-//
-//  float u_1_bar = p_term + d_term + i_term +  accelZCmd;
-  float u_1_bar = p_term + d_term + accelZCmd;
+  integratedAltitudeError += z_err *dt;
+  float i_term = integratedAltitudeError * KiPosZ;
+
+
+  float u_1_bar = p_term + d_term + i_term +  accelZCmd;
+  //float u_1_bar = p_term + d_term + accelZCmd;
   
   float c  = (u_1_bar - 9.81f)/b_z;
   thrust = - mass * CONSTRAIN(c, -maxAscentRate/dt, maxAscentRate/dt);
