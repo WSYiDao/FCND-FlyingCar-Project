@@ -5,12 +5,12 @@ project base on https://github.com/udacity/FCND-Estimation-CPP.git
 Once again, you will be building up your estimator in pieces. At each step, there will be a set of success criteria that will be displayed both in the plots and in the terminal output to help you along the way.
 Project outline:
 
- - [1. Sensor Noise](pic/#step-1-sensor-noise)
- - [2. Attitude Estimation](pic/#step-2-attitude-estimation)
- - [3. Prediction Step](pic/#step-3-prediction-step)
- - [4. Magnetometer Update](pic/#step-4-magnetometer-update)
- - [5. Closed Loop + GPS Update](pic/#step-5-closed-loop--gps-update)
- - [6. Adding Your Controller](pic/#step-6-adding-your-controller)
+ - [1. Sensor Noise](#step-1-sensor-noise)
+ - [2. Attitude Estimation](#step-2-attitude-estimation)
+ - [3. Prediction Step](#step-3-prediction-step)
+ - [4. Magnetometer Update](#step-4-magnetometer-update)
+ - [5. Closed Loop + GPS Update](#step-5-closed-loop--gps-update)
+ - [6. Adding Your Controller](#step-6-adding-your-controller)
 
 ### 1. Sensor Noise ###
 
