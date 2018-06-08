@@ -163,29 +163,33 @@ V3F QuadControl::BodyRateControl(V3F pqrCmd, V3F pqr)
 //
 //  $\bar{u}_r= k_{p-r} r_{\text{error}}$
 
-  float p_actual = pqr.x;
-  float q_actual = pqr.y;
-  float r_actual = pqr.z;
-  float p_c = pqrCmd.x;
-  float q_c = pqrCmd.y;
-  float r_c = pqrCmd.z;
-  float k_p_p = kpPQR.x;
-  float k_p_q = kpPQR.y;
-  float k_p_r = kpPQR.z;
+//  float p_actual = pqr.x;
+//  float q_actual = pqr.y;
+//  float r_actual = pqr.z;
+//  float p_c = pqrCmd.x;
+//  float q_c = pqrCmd.y;
+//  float r_c = pqrCmd.z;
+//  float k_p_p = kpPQR.x;
+//  float k_p_q = kpPQR.y;
+//  float k_p_r = kpPQR.z;
+//
+//  float p_err=p_c - p_actual;
+//  float u_bar_p = k_p_p * p_err;
+//
+//  float q_err= q_c - q_actual;
+//  float u_bar_q = k_p_q * q_err;
+//
+//  float r_err= r_c - r_actual;
+//  float u_bar_r = k_p_r * r_err;
+//
+//
+//  momentCmd = V3F(Ixx * u_bar_p, Iyy * u_bar_q, Izz * u_bar_r);
 
-  float p_err=p_c - p_actual;
-  float u_bar_p = k_p_p * p_err;
-
-  float q_err= q_c - q_actual;
-  float u_bar_q = k_p_q * q_err;
-
-  float r_err= r_c - r_actual;
-  float u_bar_r = k_p_r * r_err;
-
-  
-  momentCmd = V3F(Ixx * u_bar_p, Iyy * u_bar_q, Izz * u_bar_r);
-
-  
+  V3F errorPQR = (pqrCmd - pqr);
+  momentCmd = kpPQR * errorPQR;
+  momentCmd.x *= Ixx;
+  momentCmd.y *= Iyy;
+  momentCmd.z *= Izz;
 
   /////////////////////////////// END STUDENT CODE ////////////////////////////
 

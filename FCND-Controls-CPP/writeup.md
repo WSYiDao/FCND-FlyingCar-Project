@@ -1,4 +1,5 @@
 # Building a Controller - Writeup
+Project base on https://github.com/udacity/FCND-Controls-CPP
 
 ### 1. GenerateMotorCommands
 Convert a desired 3-axis moment and collective thrust command to individual motor thrust commands
@@ -64,7 +65,16 @@ then return  `(Ixx, Iyy, Izz)*(u_bar_p, u_bar_q, u_bar_r)`
   momentCmd = V3F(Ixx * u_bar_p, Iyy * u_bar_q, Izz * u_bar_r);
 
 ```
+the second time, add a simplified version
 
+``` c
+  V3F errorPQR = (pqrCmd - pqr);
+  momentCmd = kpPQR * errorPQR;
+  momentCmd.x *= Ixx;
+  momentCmd.y *= Iyy;
+  momentCmd.z *= Izz;
+
+```
 ### 3. RollPitchControl
 
 Calculate a desired pitch and roll angle rates based on a desired global lateral acceleration, the current attitude of the quad, and desired collective thrust command.
@@ -183,11 +193,15 @@ Control over yaw is decoupled from the other directions. A P controller is used 
 
 ### 7. QuadControlParams
 
+output result for all test:
+![result3](misc/result3.png)
+
 #### scenario 2
 ![41](misc/41.png)
 
 - I try to tune kpPQR from (23, 23, 5) to (100,100,10), the vehicle to stop spinning quickly but not overshoot.
 - Then I tune kpBank from 5 to 15, and get a good result. 
+- fail a first add tune Mass `0.4 --> 0.5`
 
 ### scenario 3 and scenario 4
 ![42](misc/42.png)
